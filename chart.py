@@ -1,0 +1,51 @@
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+
+# --------------------------
+# 1. Generate synthetic data
+# --------------------------
+np.random.seed(42)
+
+n = 100
+data = pd.DataFrame({
+    "Acquisition_Cost": np.random.uniform(50, 500, n),
+    "Customer_Lifetime_Value": np.random.uniform(200, 5000, n),
+    "Segment": np.random.choice(["High-Value", "Medium-Value", "Low-Value"], size=n)
+})
+
+# ------------------------------------
+# 2. Seaborn professional styling
+# ------------------------------------
+sns.set_style("whitegrid")
+sns.set_context("talk")
+
+plt.figure(figsize=(8, 8))  # 512x512 pixels at dpi=64
+
+# ------------------------------------
+# 3. Create scatterplot
+# ------------------------------------
+scatter = sns.scatterplot(
+    data=data,
+    x="Acquisition_Cost",
+    y="Customer_Lifetime_Value",
+    hue="Segment",
+    palette="Set2",
+    s=80,
+    edgecolor="black"
+)
+
+# Titles and labels
+plt.title("Customer Lifetime Value vs Acquisition Cost", fontsize=16, weight="bold")
+plt.xlabel("Acquisition Cost ($)", fontsize=12)
+plt.ylabel("Customer Lifetime Value ($)", fontsize=12)
+
+# Legend positioning
+plt.legend(title="Customer Segment", loc="upper left", frameon=True)
+
+# ------------------------------------
+# 4. Save output as 512x512 PNG
+# ------------------------------------
+plt.savefig("chart.png", dpi=64, bbox_inches="tight")
+plt.close()
